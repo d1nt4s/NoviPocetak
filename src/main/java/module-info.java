@@ -10,5 +10,8 @@ module com.example.novipocetak {
     requires static lombok;
 
     opens com.example.novipocetak to javafx.fxml;
+    opens com.example.novipocetak.controllers to javafx.fxml;
+
     exports com.example.novipocetak;
+    exports com.example.novipocetak.controllers;
 }

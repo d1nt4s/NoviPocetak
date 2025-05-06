@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.novipocetak.controllers.TherapistsOverviewController">
+
+    <Label text="Spisak psihoterapeuta"/>
+    <TableView fx:id="table">
+        <columns>
+            <TableColumn fx:id="ime" text="Ime"/>
+            <TableColumn fx:id="prezime" text="Prezime"/>
+            <TableColumn fx:id="jmbg" text="JMBG"/>
+            <TableColumn fx:id="email" text="Email"/>
+            <TableColumn fx:id="telefon" text="Telefon"/>
+        </columns>
+    </TableView>
+</VBox>

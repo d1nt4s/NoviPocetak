@@ -1,4 +1,4 @@
-package com.example.novipocetak.controller;
+package com.example.novipocetak.controllers;
 
 import com.example.novipocetak.util.Database;
 import javafx.event.ActionEvent;

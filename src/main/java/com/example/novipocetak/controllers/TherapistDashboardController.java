@@ -1,4 +1,4 @@
-package com.example.novipocetak.controller;
+package com.example.novipocetak.controllers;
 
 public class TherapistDashboardController {
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.novipocetak.controllers.LoginController">
+
+    <Label text="Prijava psihoterapeuta"/>
+    <TextField fx:id="emailField" promptText="Email"/>
+    <TextField fx:id="jmbgField" promptText="JMBG"/>
+    <Button text="Prijavi se" onAction="#login"/>
+    <Button text="Registruj se" onAction="#openRegister"/>
+</VBox>
