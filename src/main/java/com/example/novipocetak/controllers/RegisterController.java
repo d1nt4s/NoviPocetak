@@ -35,7 +35,7 @@ public class RegisterController {
 
     public void openLogin(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/login.fxml"));
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {

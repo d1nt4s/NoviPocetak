@@ -26,7 +26,7 @@ public class LoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-overview.fxml"));
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));
             } else {
@@ -39,7 +39,7 @@ public class LoginController {
 
     public void openRegister(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/register.fxml"));
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {

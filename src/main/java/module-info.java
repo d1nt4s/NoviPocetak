@@ -11,6 +11,7 @@ module com.example.novipocetak {
 
     opens com.example.novipocetak to javafx.fxml;
     opens com.example.novipocetak.controllers to javafx.fxml;
+    opens com.example.novipocetak.model to javafx.base;
 
     exports com.example.novipocetak;
     exports com.example.novipocetak.controllers;
