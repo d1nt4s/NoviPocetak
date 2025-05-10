@@ -16,4 +16,6 @@
             <TableColumn fx:id="telefon" text="Telefon"/>
         </columns>
     </TableView>
+
+    <Button text="Psihoterapeut menu" onAction="#openTherapeutMenu"/>
 </VBox>

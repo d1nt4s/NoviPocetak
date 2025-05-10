@@ -2,13 +2,20 @@ package com.example.novipocetak.controllers;
 
 import com.example.novipocetak.model.Psihoterapeut;
 import com.example.novipocetak.util.Database;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
+
+import static com.example.novipocetak.util.AppUtils.showAlert;
 
 public class TherapistsOverviewController {
 
@@ -47,5 +54,15 @@ public class TherapistsOverviewController {
             e.printStackTrace();
         }
         table.setItems(list);
+    }
+
+    public void openTherapeutMenu(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-menu.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            showAlert("Greška pri prebacivanju scene", e.getMessage());
+        }
     }
 }

@@ -20,14 +20,22 @@ public class TherapistMenuController {
     }
     public void openTherapistProfile(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-profile.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
             showAlert("Greška pri prebacivanju scene", e.getMessage());
         }
     }
-    public void openNewClientApplications(ActionEvent event) {  }
+    public void openNewClientApplications(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/client-applications.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            showAlert("Greška pri prebacivanju scene", e.getMessage());
+        }
+    }
     public void openPastSessions(ActionEvent event) {  }
     public void openUpcomingSessions(ActionEvent event) {  }
     public void openSessionNotes(ActionEvent event) {  }

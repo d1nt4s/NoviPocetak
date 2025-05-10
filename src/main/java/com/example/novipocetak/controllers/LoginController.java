@@ -1,6 +1,7 @@
 package com.example.novipocetak.controllers;
 
 import com.example.novipocetak.util.Database;
+import com.example.novipocetak.util.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -26,13 +27,15 @@ public class LoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist_menu.fxml"));
+                Session.setLoggedInEmail(email);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-menu.fxml"));
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));
             } else {
                 AppUtils.showAlert("Prijava neuspešna", "Pogrešan JMBG ili email.");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             AppUtils.showAlert("Greška", e.getMessage());
         }
     }

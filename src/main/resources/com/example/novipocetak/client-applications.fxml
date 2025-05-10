@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.novipocetak.controllers.ClientApplicationsController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Nove prijave klijenata"/>
+
+    <TableView fx:id="clientsTable" prefHeight="200">
+        <columns>
+            <TableColumn text="Ime" fx:id="imeColumn"/>
+            <TableColumn text="Prezime" fx:id="prezimeColumn"/>
+            <TableColumn text="Pol" fx:id="polColumn"/>
+            <TableColumn text="Telefon" fx:id="telefonColumn"/>
+        </columns>
+    </TableView>
+
+    <Label text="Dodaj novog klijenta"/>
+
+    <TextField fx:id="imeField" promptText="Ime" text="Henry"/>
+    <TextField fx:id="prezimeField" promptText="Prezime" text="Show"/>
+    <DatePicker fx:id="dobPicker"/>
+    <TextField fx:id="polField" promptText="Pol" text="Male"/>
+    <TextField fx:id="imejlField" promptText="Email" text="eblan@yandex.ru"/>
+    <TextField fx:id="telefonField" promptText="Telefon" text="+38269809070"/>
+    <TextArea fx:id="problemField" promptText="Opis problema" text="bolestan na glavu"/>
+
+    <Button text="Dodaj klijenta" onAction="#addClient"/>
+</VBox>
