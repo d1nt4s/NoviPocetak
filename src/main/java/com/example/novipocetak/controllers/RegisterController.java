@@ -3,12 +3,13 @@ package com.example.novipocetak.controllers;
 import com.example.novipocetak.util.Database;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import java.sql.*;
+
+import static com.example.novipocetak.util.AppUtils.showAlert;
 
 public class RegisterController {
     @FXML private TextField imeField;
@@ -43,10 +44,4 @@ public class RegisterController {
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
-    }
 }

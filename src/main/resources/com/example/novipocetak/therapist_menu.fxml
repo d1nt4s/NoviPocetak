@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.novipocetak.controllers.TherapistMenuController"
+      spacing="10" alignment="CENTER"
+      padding="20">
+
+    <Button text="Pregled svih psihoterapeuta u Savetovalištu"
+            onAction="#openTherapistsOverview"/>
+
+    <Button text="Pregled mog profila"
+            onAction="#openTherapistProfile"/>
+
+    <Button text="Prijave novih klijenata"
+            onAction="#openNewClientApplications"/>
+
+    <Button text="Održane seanse"
+            onAction="#openPastSessions"/>
+
+    <Button text="Budući termini seansi"
+            onAction="#openUpcomingSessions"/>
+
+    <Button text="Beleške i testovi sa seansi"
+            onAction="#openSessionNotes"/>
+
+    <Button text="Objavljivanje podataka sa seanse"
+            onAction="#openSessionDataPublishing"/>
+
+    <Button text="Uplate i dugovanja klijenata"
+            onAction="#openPaymentsAndDebts"/>
+
+</VBox>

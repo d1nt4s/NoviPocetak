@@ -7,8 +7,8 @@
       fx:controller="com.example.novipocetak.controllers.LoginController">
 
     <Label text="Prijava psihoterapeuta"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <TextField fx:id="jmbgField" promptText="JMBG"/>
+    <TextField fx:id="emailField" promptText="Email" text="john.smith@example.com"/>
+    <TextField fx:id="jmbgField" promptText="JMBG" text="1234567890123"/>
     <Button text="Prijavi se" onAction="#login"/>
     <Button text="Registruj se" onAction="#openRegister"/>
 </VBox>

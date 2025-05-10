@@ -3,12 +3,12 @@ package com.example.novipocetak.controllers;
 import com.example.novipocetak.util.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import java.sql.*;
+import com.example.novipocetak.util.AppUtils;
 
 public class LoginController {
     @FXML private TextField emailField;
@@ -26,14 +26,14 @@ public class LoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-overview.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist_menu.fxml"));
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));
             } else {
-                showAlert("Prijava neuspešna", "Pogrešan JMBG ili email.");
+                AppUtils.showAlert("Prijava neuspešna", "Pogrešan JMBG ili email.");
             }
         } catch (Exception e) {
-            showAlert("Greška", e.getMessage());
+            AppUtils.showAlert("Greška", e.getMessage());
         }
     }
 
@@ -43,15 +43,9 @@ public class LoginController {
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
         } catch (Exception e) {
-            showAlert("Greška pri prebacivanju scene", e.getMessage());
+            AppUtils.showAlert("Greška pri prebacivanju scene", e.getMessage());
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
-    }
 }
 
