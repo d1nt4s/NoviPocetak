@@ -25,10 +25,8 @@
     </TableView>
 
     <HBox spacing="10">
-        <RadioButton fx:id="pastSessionsRadio" text="Past"
-                     toggleGroup="$sessionFilterGroup" selected="true"/>
-        <RadioButton fx:id="futureSessionsRadio" text="Future"
-                     toggleGroup="$sessionFilterGroup"/>
+        <RadioButton fx:id="pastSessionsRadio" text="Past" selected="true" />
+        <RadioButton fx:id="futureSessionsRadio" text="Future" />
     </HBox>
 
 </VBox>

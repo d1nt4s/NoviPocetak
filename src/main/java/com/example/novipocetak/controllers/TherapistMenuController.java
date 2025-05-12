@@ -48,7 +48,16 @@ public class TherapistMenuController {
     }
 
     public void openSessionNotes(ActionEvent event) {  }
-    public void openSessionDataPublishing(ActionEvent event) {  }
+    public void openSessionDataPublishing(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/disclosures-view.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Greška pri prebacivanju scene", e.getMessage());
+        }
+    }
     public void openPaymentsAndDebts(ActionEvent event) {  }
 
 }
