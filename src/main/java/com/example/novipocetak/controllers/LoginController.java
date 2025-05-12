@@ -28,6 +28,7 @@ public class LoginController {
 
             if (rs.next()) {
                 Session.setLoggedInEmail(email);
+                Session.setLoggedInID(rs.getInt("psihoterapeut_id"));
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/therapist-menu.fxml"));
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));

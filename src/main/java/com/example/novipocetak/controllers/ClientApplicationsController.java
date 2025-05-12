@@ -2,6 +2,7 @@ package com.example.novipocetak.controllers;
 
 import com.example.novipocetak.model.Klijent;
 import com.example.novipocetak.util.Database;
+import com.example.novipocetak.util.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,7 +38,18 @@ public class ClientApplicationsController {
     private void loadClients() {
         clients.clear();
         try (Connection conn = Database.connect()) {
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Klijent");
+            int psih_id = Session.getLoggedInID();
+            System.out.println(psih_id);
+            ResultSet rs = conn.createStatement().executeQuery("SELECT \n" +
+                    "    p.psihoterapeut_id,\n" +
+                    "    CONCAT(p.ime, ' ', p.prezime) AS therapist_name,\n" +
+                    "    k.*,\n" +
+                    "    COUNT(*) AS session_count\n" +
+                    "FROM seansa s\n" +
+                    "JOIN Psihoterapeut p ON s.Psihoterapeut_psihoterapeut_id = p.psihoterapeut_id\n" +
+                    "JOIN Klijent k ON s.Klijent_klijent_id = k.klijent_id\n" +
+                    "WHERE p.psihoterapeut_id = " + psih_id + "\n" +
+                    "GROUP BY p.psihoterapeut_id, k.klijent_id;\n");
             while (rs.next()) {
                 clients.add(new Klijent(
                         rs.getInt("klijent_id"),
