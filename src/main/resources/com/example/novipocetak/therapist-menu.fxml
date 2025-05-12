@@ -21,9 +21,7 @@
 
     <Button text="Prijave novih klijenata" onAction="#openNewClientApplications"/>
 
-    <Button text="Održane seanse" onAction="#openPastSessions"/>
-
-    <Button text="Budući termini seansi" onAction="#openUpcomingSessions"/>
+    <Button text="Održane i buduci seanse" onAction="#openPastAndFutureSessions"/>
 
     <Button text="Beleške i testovi sa seansi" onAction="#openSessionNotes"/>
 

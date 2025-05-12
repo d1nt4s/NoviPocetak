@@ -1,0 +1,80 @@
+package com.example.novipocetak.controllers;
+
+import com.example.novipocetak.model.Seansa;
+import com.example.novipocetak.util.Database;
+import com.example.novipocetak.util.Session;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+import java.sql.*;
+import java.time.LocalDate;
+
+import static com.example.novipocetak.util.AppUtils.showAlert;
+
+public class SessionViewController {
+    @FXML private TableView<Seansa> sessionsTable;
+    @FXML private TableColumn<Seansa, LocalDate> dateColumn;
+    @FXML private TableColumn<Seansa, String> timeColumn;
+    @FXML private TableColumn<Seansa, Integer> durationColumn;
+    @FXML private TableColumn<Seansa, String> notesColumn;
+
+//    @FXML private ToggleGroup sessionFilterGroup;
+    @FXML private RadioButton pastSessionsRadio;
+    @FXML private RadioButton futureSessionsRadio;
+
+    private ObservableList<Seansa> sessions = FXCollections.observableArrayList();
+
+    @FXML
+    public void initialize() {
+        dateColumn.setCellValueFactory(data -> data.getValue().datumProperty());
+        timeColumn.setCellValueFactory(data -> data.getValue().vremeProperty());
+        durationColumn.setCellValueFactory(data -> data.getValue().trajanjeProperty().asObject());
+        notesColumn.setCellValueFactory(data -> data.getValue().beleskeProperty());
+
+        loadSessions(true);
+
+        ToggleGroup group = new ToggleGroup();
+        pastSessionsRadio.setToggleGroup(group);
+        futureSessionsRadio.setToggleGroup(group);
+
+        group.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle == pastSessionsRadio) {
+                loadSessions(true);
+            } else {
+                loadSessions(false);
+            }
+        });
+
+    }
+
+    private void loadSessions(boolean past) {
+        sessions.clear();
+        try (Connection conn = Database.connect()) {
+            int psih_id = Session.getLoggedInID();
+            String sql = "SELECT * FROM seansa WHERE Psihoterapeut_psihoterapeut_id = ? AND datum ";
+            sql += past ? "< ?" : ">= ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, psih_id);
+            stmt.setDate(2, Date.valueOf(LocalDate.now()));
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                sessions.add(new Seansa(
+                        rs.getInt("seansa_id"),
+                        rs.getDate("datum").toLocalDate(),
+                        rs.getString("vreme"),
+                        rs.getInt("trajanje"),
+                        rs.getString("beleske")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Greška", "Došlo je do greške prilikom učitavanja seansi.");
+        }
+        sessionsTable.setItems(sessions);
+    }
+}
+
