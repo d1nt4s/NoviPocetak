@@ -1,42 +1,38 @@
 package com.example.novipocetak.model;
 
 import javafx.beans.property.*;
-import java.time.LocalDate;
 
 public class SeansaDisclosure {
-    private final IntegerProperty seansaId = new SimpleIntegerProperty();
-    private final ObjectProperty<LocalDate> datum = new SimpleObjectProperty<>();
-    private final StringProperty vreme = new SimpleStringProperty();
-    private final IntegerProperty trajanje = new SimpleIntegerProperty();
-    private final StringProperty beleske = new SimpleStringProperty();
+    private final IntegerProperty seansaId;
+    private final StringProperty datum;
+    private final StringProperty vreme;
+    private final IntegerProperty trajanje;
+    private final StringProperty beleske;
+    private final StringProperty testNaziv;
+    private final StringProperty rezultat;
+    private final StringProperty objava;
+    private final StringProperty klijent;
 
-    private final ObjectProperty<LocalDate> datumObjave = new SimpleObjectProperty<>();
-    private final StringProperty kome = new SimpleStringProperty();
-    private final StringProperty razlog = new SimpleStringProperty();
-
-    private final IntegerProperty klijentId = new SimpleIntegerProperty();
-
-    public SeansaDisclosure(int seansaId, LocalDate datum, String vreme, int trajanje, String beleske,
-                            LocalDate datumObjave, String kome, String razlog, int klijentId) {
-        this.seansaId.set(seansaId);
-        this.datum.set(datum);
-        this.vreme.set(vreme);
-        this.trajanje.set(trajanje);
-        this.beleske.set(beleske);
-        this.datumObjave.set(datumObjave);
-        this.kome.set(kome);
-        this.razlog.set(razlog);
-        this.klijentId.set(klijentId);
+    public SeansaDisclosure(int seansaId, String datum, String vreme, int trajanje, String beleske,
+                            String testNaziv, String rezultat, String objava, String klijent) {
+        this.seansaId = new SimpleIntegerProperty(seansaId);
+        this.datum = new SimpleStringProperty(datum);
+        this.vreme = new SimpleStringProperty(vreme);
+        this.trajanje = new SimpleIntegerProperty(trajanje);
+        this.beleske = new SimpleStringProperty(beleske);
+        this.testNaziv = new SimpleStringProperty(testNaziv);
+        this.rezultat = new SimpleStringProperty(rezultat);
+        this.objava = new SimpleStringProperty(objava);
+        this.klijent = new SimpleStringProperty(klijent);
     }
 
     public IntegerProperty seansaIdProperty() { return seansaId; }
-    public ObjectProperty<LocalDate> datumProperty() { return datum; }
+    public StringProperty datumProperty() { return datum; }
     public StringProperty vremeProperty() { return vreme; }
     public IntegerProperty trajanjeProperty() { return trajanje; }
     public StringProperty beleskeProperty() { return beleske; }
-    public ObjectProperty<LocalDate> datumObjaveProperty() { return datumObjave; }
-    public StringProperty komeProperty() { return kome; }
-    public StringProperty razlogProperty() { return razlog; }
-    public int getKlijentId() { return klijentId.get(); }
-    public IntegerProperty klijentIdProperty() { return klijentId; }
+    public StringProperty testNazivProperty() { return testNaziv; }
+    public StringProperty rezultatProperty() { return rezultat; }
+    public StringProperty objavaProperty() { return objava; }
+    public StringProperty klijentProperty() { return klijent; }
 }

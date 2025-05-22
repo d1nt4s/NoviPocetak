@@ -1,47 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.novipocetak.controllers.DisclosureSessionsController"
-      spacing="12" alignment="TOP_CENTER">
+<VBox spacing="15" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
+      fx:controller="com.example.novipocetak.controllers.DisclosureSessionsController">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Seanse i informacije o objavljivanju" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Pregled seansi i testova" style="-fx-font-size: 18px; -fx-font-weight: bold"/>
 
-    <TableView fx:id="table" prefWidth="900" prefHeight="400">
+    <TableView fx:id="seansaTable" prefHeight="400">
         <columns>
-            <TableColumn fx:id="datumCol" text="Datum seanse" prefWidth="100"/>
+            <TableColumn fx:id="seansaIdCol" text="ID Seanse"/>
+            <TableColumn fx:id="datumCol" text="Datum"/>
             <TableColumn fx:id="vremeCol" text="Vreme"/>
-            <TableColumn fx:id="trajanjeCol" text="Trajanje (min)" prefWidth="120"/>
-            <TableColumn fx:id="beleskeCol" text="Beleške" prefWidth="200"/>
-            <TableColumn fx:id="objavaDatumCol" text="Datum objave" prefWidth="120"/>
-            <TableColumn fx:id="komeCol" text="Objavljeno kome" prefWidth="120"/>
-            <TableColumn fx:id="razlogCol" text="Razlog" prefWidth="150"/>
+            <TableColumn fx:id="trajanjeCol" text="Trajanje (min)"/>
+            <TableColumn fx:id="beleskeCol" text="Beleške"/>
+            <TableColumn fx:id="testCol" text="Test"/>
+            <TableColumn fx:id="rezultatCol" text="Rezultat"/>
+            <TableColumn fx:id="objavaCol" text="Objavljeno (komu, razlog)"/>
+            <TableColumn fx:id="klijentCol" text="Klijent"/>
         </columns>
     </TableView>
 
-    <Label text="Dodaj novo objavljivanje" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-
-    <HBox spacing="10" alignment="CENTER">
-        <Label text="Datum objave:"/>
-        <DatePicker fx:id="disclosureDateField"/>
-
-        <Label text="Kome:"/>
-        <TextField fx:id="disclosedToField" promptText="npr. osiguranje"/>
-
-        <Label text="Razlog:"/>
-        <TextField fx:id="reasonField" promptText="npr. obrada zahteva"/>
-    </HBox>
-
-    <Button fx:id="saveDisclosureButton" text="Sačuvaj objavu"/>
-
     <Button text="Povratak u meni" onAction="#openTherapeutMenu"/>
-
 </VBox>

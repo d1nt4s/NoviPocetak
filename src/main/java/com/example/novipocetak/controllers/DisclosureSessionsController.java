@@ -14,121 +14,86 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.*;
-import java.time.LocalDate;
 
 import static com.example.novipocetak.util.AppUtils.showAlert;
 
 public class DisclosureSessionsController {
 
-    @FXML private TableView<SeansaDisclosure> table;
-    @FXML private TableColumn<SeansaDisclosure, LocalDate> datumCol;
+    @FXML private TableView<SeansaDisclosure> seansaTable;
+    @FXML private TableColumn<SeansaDisclosure, Integer> seansaIdCol;
+    @FXML private TableColumn<SeansaDisclosure, String> datumCol;
     @FXML private TableColumn<SeansaDisclosure, String> vremeCol;
-    @FXML private TableColumn<SeansaDisclosure, Number> trajanjeCol;
+    @FXML private TableColumn<SeansaDisclosure, Integer> trajanjeCol;
     @FXML private TableColumn<SeansaDisclosure, String> beleskeCol;
-    @FXML private TableColumn<SeansaDisclosure, LocalDate> objavaDatumCol;
-    @FXML private TableColumn<SeansaDisclosure, String> komeCol;
-    @FXML private TableColumn<SeansaDisclosure, String> razlogCol;
+    @FXML private TableColumn<SeansaDisclosure, String> testCol;
+    @FXML private TableColumn<SeansaDisclosure, String> rezultatCol;
+    @FXML private TableColumn<SeansaDisclosure, String> objavaCol;
+    @FXML private TableColumn<SeansaDisclosure, String> klijentCol;
 
-    @FXML private DatePicker disclosureDateField;
-    @FXML private TextField disclosedToField;
-    @FXML private TextField reasonField;
-    @FXML private Button saveDisclosureButton;
-
-    private final ObservableList<SeansaDisclosure> sessionList = FXCollections.observableArrayList();
+    private final ObservableList<SeansaDisclosure> data = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        datumCol.setCellValueFactory(data -> data.getValue().datumProperty());
-        vremeCol.setCellValueFactory(data -> data.getValue().vremeProperty());
-        trajanjeCol.setCellValueFactory(data -> data.getValue().trajanjeProperty());
-        beleskeCol.setCellValueFactory(data -> data.getValue().beleskeProperty());
-        objavaDatumCol.setCellValueFactory(data -> data.getValue().datumObjaveProperty());
-        komeCol.setCellValueFactory(data -> data.getValue().komeProperty());
-        razlogCol.setCellValueFactory(data -> data.getValue().razlogProperty());
+        seansaIdCol.setCellValueFactory(cellData -> cellData.getValue().seansaIdProperty().asObject());
+        datumCol.setCellValueFactory(cellData -> cellData.getValue().datumProperty());
+        vremeCol.setCellValueFactory(cellData -> cellData.getValue().vremeProperty());
+        trajanjeCol.setCellValueFactory(cellData -> cellData.getValue().trajanjeProperty().asObject());
+        beleskeCol.setCellValueFactory(cellData -> cellData.getValue().beleskeProperty());
+        testCol.setCellValueFactory(cellData -> cellData.getValue().testNazivProperty());
+        rezultatCol.setCellValueFactory(cellData -> cellData.getValue().rezultatProperty());
+        objavaCol.setCellValueFactory(cellData -> cellData.getValue().objavaProperty());
+        klijentCol.setCellValueFactory(cellData -> cellData.getValue().klijentProperty());
 
         loadData();
-
-        saveDisclosureButton.setOnAction(e -> saveDisclosure());
     }
 
     private void loadData() {
-        sessionList.clear();
-        int psihoterapeutId = Session.getLoggedInID();
+        try (Connection conn = Database.connect()) {
+            String sql = """
+                SELECT s.seansa_id, s.datum, s.vreme, s.trajanje, s.beleske,
+                       pt.naziv AS test_naziv, t.rezultat,
+                       op.kome, op.razlog,
+                       k.ime AS klijent_ime, k.prezime AS klijent_prezime
+                FROM seansa s
+                LEFT JOIN testiranje t ON s.Testiranje_testiranje_id = t.testiranje_id
+                                        AND s.Testiranje_PsiholoskiTest_test_id = t.PsiholoskiTest_test_id
+                LEFT JOIN psiholoskitest pt ON t.PsiholoskiTest_test_id = pt.test_id
+                LEFT JOIN klijent k ON s.Klijent_klijent_id = k.klijent_id
+                LEFT JOIN objavljivanjepodataka op ON s.seansa_id = op.Seansa_seansa_id
+                                                   AND s.Kandidat_kandidat_id = op.Seansa_Kandidat_kandidat_id
+                                                   AND s.Psihoterapeut_psihoterapeut_id = op.Seansa_Psihoterapeut_psihoterapeut_id
+                                                   AND s.Klijent_klijent_id = op.Seansa_Klijent_klijent_id
+                WHERE s.Psihoterapeut_psihoterapeut_id = ?
+            """;
 
-        String sql = """
-            SELECT s.seansa_id, s.datum, s.vreme, s.trajanje, s.beleske,
-                   s.Klijent_klijent_id, 
-                   o.datum AS objava_datum, o.kome, o.razlog
-            FROM seansa s
-            LEFT JOIN ObjavljivanjePodataka o ON s.seansa_id = o.Seansa_seansa_id
-            WHERE s.Psihoterapeut_psihoterapeut_id = ?
-        """;
+            int prijavljeniId = Session.getLoggedInID();
 
-        try (Connection conn = Database.connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, psihoterapeutId);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, prijavljeniId);
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                sessionList.add(new SeansaDisclosure(
-                        rs.getInt("seansa_id"),
-                        rs.getDate("datum").toLocalDate(),
-                        rs.getString("vreme"),
-                        rs.getInt("trajanje"),
-                        rs.getString("beleske"),
-                        rs.getDate("objava_datum") != null ? rs.getDate("objava_datum").toLocalDate() : null,
-                        rs.getString("kome"),
-                        rs.getString("razlog"),
-                        rs.getInt("Klijent_klijent_id")
-                ));
+                int seansaId = rs.getInt("seansa_id");
+                String datum = rs.getString("datum");
+                String vreme = rs.getString("vreme");
+                int trajanje = rs.getInt("trajanje");
+                String beleske = rs.getString("beleske");
+                String test = rs.getString("test_naziv");
+                String rezultat = rs.getString("rezultat");
+                String objava = rs.getString("kome") != null
+                        ? rs.getString("kome") + " — " + rs.getString("razlog")
+                        : "Nije objavljeno";
+                String klijent = rs.getString("klijent_ime") + " " + rs.getString("klijent_prezime");
+
+                data.add(new SeansaDisclosure(seansaId, datum, vreme, trajanje, beleske, test, rezultat, objava, klijent));
             }
 
-            table.setItems(sessionList);
-        } catch (Exception e) {
+            seansaTable.setItems(data);
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void saveDisclosure() {
-        SeansaDisclosure selected = table.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            showAlert("No Session Selected", "Please select a session first.");
-            return;
-        }
-
-        LocalDate disclosureDate = disclosureDateField.getValue();
-        String disclosedTo = disclosedToField.getText();
-        String reason = reasonField.getText();
-
-        if (disclosureDate == null || disclosedTo.isEmpty() || reason.isEmpty()) {
-            showAlert("Missing Fields", "Please fill out all disclosure fields.");
-            return;
-        }
-
-        String sql = "INSERT INTO ObjavljivanjePodataka (datum, kome, razlog, Seansa_seansa_id, Seansa_Kandidat_kandidat_id, Seansa_Psihoterapeut_psihoterapeut_id, Seansa_Klijent_klijent_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = Database.connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setDate(1, Date.valueOf(disclosureDate));
-            stmt.setString(2, disclosedTo);
-            stmt.setString(3, reason);
-            stmt.setInt(4, selected.seansaIdProperty().get());
-            stmt.setNull(5, Types.INTEGER);
-//            stmt.setInt(5, selected.getKandidatId());
-            stmt.setInt(6, Session.getLoggedInID());
-            stmt.setInt(7, selected.getKlijentId());
-            stmt.executeUpdate();
-            showAlert("Success", "Disclosure saved successfully.");
-            loadData();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Database Error", e.getMessage());
-        }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     public void openTherapeutMenu(ActionEvent event) {
