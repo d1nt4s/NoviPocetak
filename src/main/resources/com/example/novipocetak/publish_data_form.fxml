@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.novipocetak.controllers.PublishDataController"
+      spacing="10" alignment="CENTER">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Objavljivanje podataka sa seanse" style="-fx-font-size: 16px;"/>
+
+    <ComboBox fx:id="seansaCombo" promptText="Odaberi seansu (klijent)" prefWidth="300"/>
+    <TextField fx:id="komeField" promptText="Kome (institucija)" prefWidth="300"/>
+    <TextField fx:id="razlogField" promptText="Razlog objavljivanja" prefWidth="300"/>
+    <DatePicker fx:id="datumPicker" promptText="Datum" prefWidth="300"/>
+
+    <Button text="Sačuvaj objavu" onAction="#saveObjava" prefWidth="200"/>
+    <Button text="Nazad na meni" onAction="#openTherapeutMenu"/>
+</VBox>

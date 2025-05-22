@@ -25,6 +25,8 @@
 
     <Button text="Beleške i testovi sa seansi" onAction="#openSessionNotes"/>
 
+    <Button text="Cuvanje podataka o objavljivanju podataka sa određene seanse" onAction="#savePublishData"/>
+
 <!--    <Button text="Uplate i dugovanja klijenata" onAction="#openPaymentsAndDebts"/>-->
 
 </VBox>
