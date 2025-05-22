@@ -7,9 +7,13 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static com.example.novipocetak.util.AppUtils.showAlert;
+import static com.example.novipocetak.util.AppUtils.showSuccess;
 
 public class RegisterController {
     @FXML private TextField imeField;
@@ -20,17 +24,23 @@ public class RegisterController {
 
     public void register() {
         try (Connection conn = Database.connect()) {
-            String sql = "INSERT INTO Psihoterapeut (datum_specifikacije, ime, prezime, JMBG, imejl, telefon, OblastPsihoterapije_oblastPsih_id) VALUES (CURDATE(), ?, ?, ?, ?, ?, 1)";
+            String sql = "INSERT INTO psihoterapeut " +
+                    "(datum_sertifikacije, ime, prezime, JMBG, imejl, telefon, OblastPsihoterapije_oblastPsih_id) " +
+                    "VALUES (CURDATE(), ?, ?, ?, ?, ?, 1)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, imeField.getText());
-            stmt.setString(2, prezimeField.getText());
-            stmt.setString(3, jmbgField.getText());
-            stmt.setString(4, emailField.getText());
-            stmt.setString(5, telefonField.getText());
+            stmt.setString(1, imeField.getText().trim());
+            stmt.setString(2, prezimeField.getText().trim());
+            stmt.setString(3, jmbgField.getText().trim());
+            stmt.setString(4, emailField.getText().trim());
+            stmt.setString(5, telefonField.getText().trim());
             stmt.executeUpdate();
-            showAlert("Uspešno", "Registracija uspešna!");
-        } catch (Exception e) {
-            showAlert("Greška", e.getMessage());
+            showSuccess("Uspešno", "Registracija uspešna!");
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Duplicate")) {
+                showAlert("Greška", "Uneti podaci već postoje u sistemu.");
+            } else {
+                showAlert("Greška", e.getMessage());
+            }
         }
     }
 
@@ -43,5 +53,4 @@ public class RegisterController {
             showAlert("Greška pri prebacivanju scene", e.getMessage());
         }
     }
-
 }

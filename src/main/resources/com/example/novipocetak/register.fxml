@@ -7,11 +7,11 @@
       fx:controller="com.example.novipocetak.controllers.RegisterController">
 
     <Label text="Registracija psihoterapeuta"/>
-    <TextField fx:id="imeField" promptText="Ime"/>
-    <TextField fx:id="prezimeField" promptText="Prezime"/>
-    <TextField fx:id="jmbgField" promptText="JMBG"/>
-    <TextField fx:id="emailField" promptText="Email"/>
-    <TextField fx:id="telefonField" promptText="Telefon"/>
+    <TextField fx:id="imeField" promptText="Ime" text="John"/>
+    <TextField fx:id="prezimeField" promptText="Prezime" text="Smith"/>
+    <TextField fx:id="jmbgField" promptText="JMBG" text="1234567890123"/>
+    <TextField fx:id="emailField" promptText="Email" text="john.smith@example.com"/>
+    <TextField fx:id="telefonField" promptText="Telefon" text="+1987654321"/>
     <Button text="Registruj se" onAction="#register"/>
     <Button text="Nazad na prijavu" onAction="#openLogin"/>
 </VBox>
