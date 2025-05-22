@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
@@ -13,21 +12,23 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Sessions" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    <Label text="Seanse psihoterapeuta" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
-    <TableView fx:id="sessionsTable" prefHeight="400" prefWidth="600">
+    <TableView fx:id="sessionsTable" prefHeight="400" prefWidth="750">
         <columns>
-            <TableColumn fx:id="dateColumn" text="Date" prefWidth="120"/>
-            <TableColumn fx:id="timeColumn" text="Time" prefWidth="100"/>
-            <TableColumn fx:id="durationColumn" text="Duration (min)" prefWidth="120"/>
-            <TableColumn fx:id="notesColumn" text="Notes" prefWidth="260"/>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="dateColumn" text="Datum" prefWidth="120"/>
+            <TableColumn fx:id="timeColumn" text="Vreme" prefWidth="100"/>
+            <TableColumn fx:id="durationColumn" text="Trajanje (min)" prefWidth="120"/>
+            <TableColumn fx:id="notesColumn" text="Beleške" prefWidth="200"/>
+            <TableColumn fx:id="clientColumn" text="Klijent" prefWidth="150"/>
         </columns>
     </TableView>
 
     <HBox spacing="10">
-        <RadioButton fx:id="pastSessionsRadio" text="Past" selected="true" />
-        <RadioButton fx:id="futureSessionsRadio" text="Future" />
+        <RadioButton fx:id="pastSessionsRadio" text="Prethodne" selected="true" />
+        <RadioButton fx:id="futureSessionsRadio" text="Buduće" />
     </HBox>
 
-    <Button text="Psihoterapeut menu" onAction="#openTherapeutMenu"/>
+    <Button text="Nazad na meni" onAction="#openTherapeutMenu"/>
 </VBox>
