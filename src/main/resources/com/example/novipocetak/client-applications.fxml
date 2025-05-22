@@ -34,4 +34,7 @@
     <TextArea fx:id="problemField" promptText="Opis problema" text="bolestan na glavu"/>
 
     <Button text="Dodaj klijenta" onAction="#addClient"/>
+
+    <Button text="Psihoterapeut menu" onAction="#openTherapeutMenu"/>
+
 </VBox>

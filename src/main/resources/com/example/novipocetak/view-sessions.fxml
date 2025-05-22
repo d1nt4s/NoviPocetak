@@ -29,4 +29,5 @@
         <RadioButton fx:id="futureSessionsRadio" text="Future" />
     </HBox>
 
+    <Button text="Psihoterapeut menu" onAction="#openTherapeutMenu"/>
 </VBox>

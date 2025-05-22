@@ -43,4 +43,6 @@
 <!--    <Button text="Save Disclosure" onAction="#saveDisclosure"/>-->
     <Button fx:id="saveDisclosureButton" text="Save Disclosure" />
 
+    <Button text="Psihoterapeut menu" onAction="#openTherapeutMenu"/>
+
 </VBox>
