@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.novipocetak.controllers.PaymentOverviewController">
+
+    <top>
+        <Label text="Pregled uplata i dugovanja klijenata"
+               style="-fx-font-size: 16px; -fx-padding: 10;" />
+    </top>
+
+    <center>
+        <TableView fx:id="paymentTable">
+            <columns>
+                <TableColumn fx:id="clientColumn" text="Klijent" prefWidth="150"/>
+                <TableColumn fx:id="valutaColumn" text="Valuta" prefWidth="60"/>
+                <TableColumn fx:id="amountColumn" text="Iznos" prefWidth="100"/>
+                <TableColumn fx:id="dueDateColumn" text="Rok za uplatu" prefWidth="120"/>
+                <TableColumn fx:id="paidDateColumn" text="Datum uplate" prefWidth="120"/>
+                <TableColumn fx:id="overdueColumn" text="Prekoračenje" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button text="Povratak u meni" onAction="#openTherapeutMenu"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

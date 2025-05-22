@@ -27,6 +27,6 @@
 
     <Button text="Cuvanje podataka o objavljivanju podataka sa određene seanse" onAction="#savePublishData"/>
 
-<!--    <Button text="Uplate i dugovanja klijenata" onAction="#openPaymentsAndDebts"/>-->
+    <Button text="Uplate i dugovanja klijenata" onAction="#openPaymentsAndDebts"/>
 
 </VBox>
