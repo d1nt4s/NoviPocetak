@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String URL = "jdbc:mysql://localhost:3306/novipocetak1";
+    private static final String URL = "jdbc:mysql://localhost:3306/novipocetak2";
     private static final String USER = "d1ntes";
     private static final String PASSWORD = "qwerty123"; // prilagodi ako koristiš lozinku
 

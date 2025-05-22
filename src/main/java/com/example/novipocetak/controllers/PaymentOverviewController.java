@@ -62,7 +62,7 @@ public class PaymentOverviewController {
         ObservableList<PaymentInfo> data = FXCollections.observableArrayList();
 
         String query = """
-            SELECT k.ime, k.prezime, v.skraceni_naziv, r.iznos, r.krajnji_datum, r.datum_uplate
+            SELECT k.ime, k.prezime, v.skracenji_naziv, r.iznos, r.krajnji_datum, r.datum_uplate
             FROM rata r
             JOIN placenje p ON r.Placenje_placenje_id = p.placenje_id
                 AND r.Placenje_Seansa_Psihoterapeut_psihoterapeut_id = ?
@@ -79,7 +79,7 @@ public class PaymentOverviewController {
 
             while (rs.next()) {
                 String clientName = rs.getString("ime") + " " + rs.getString("prezime");
-                String valuta = rs.getString("skraceni_naziv");
+                String valuta = rs.getString("skracenji_naziv");
                 double iznos = rs.getDouble("iznos");
                 LocalDate due = rs.getDate("krajnji_datum").toLocalDate();
                 LocalDate paid = rs.getDate("datum_uplate").toLocalDate();

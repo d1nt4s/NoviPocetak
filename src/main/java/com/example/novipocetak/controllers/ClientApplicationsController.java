@@ -17,6 +17,7 @@ import java.sql.*;
 import java.time.LocalDate;
 
 import static com.example.novipocetak.util.AppUtils.showAlert;
+import static com.example.novipocetak.util.AppUtils.showSuccess;
 
 public class ClientApplicationsController {
     @FXML private TableView<Klijent> clientsTable;
@@ -45,7 +46,6 @@ public class ClientApplicationsController {
         clients.clear();
         try (Connection conn = Database.connect()) {
             int psih_id = Session.getLoggedInID();
-            System.out.println(psih_id);
             ResultSet rs = conn.createStatement().executeQuery("SELECT \n" +
                     "    p.psihoterapeut_id,\n" +
                     "    CONCAT(p.ime, ' ', p.prezime) AS therapist_name,\n" +
@@ -83,6 +83,21 @@ public class ClientApplicationsController {
                 return;
             }
 
+            String checkSql = "SELECT imejl, telefon, ime, prezime FROM Klijent WHERE imejl = ? OR telefon = ? OR (ime = ? AND prezime = ?)";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, imejlField.getText());
+            checkStmt.setString(2, telefonField.getText());
+            checkStmt.setString(3, imeField.getText());
+            checkStmt.setString(4, prezimeField.getText());
+
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                String conflictField = rs.getString("imejl").equals(imejlField.getText()) ? "email" :
+                        rs.getString("telefon").equals(telefonField.getText()) ? "telefon" :
+                                "kombinacija imena i prezimena";
+                showAlert("Greška", "Klijent sa istim " + conflictField + " već postoji.");
+                return;
+            }
 
             String sql = "INSERT INTO Klijent (ime, prezime, dob, pol, imejl, telefon, proslo_iskustvo, problem) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -95,11 +110,15 @@ public class ClientApplicationsController {
             stmt.setBoolean(7, false);
             stmt.setString(8, problemField.getText());
             stmt.executeUpdate();
+
+            showAlert("Uspešno", "Klijent je uspešno dodat.");
             loadClients();
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Greška", "Došlo je do greške prilikom dodavanja klijenta.");
         }
     }
+
 
     public void openTherapeutMenu(ActionEvent event) {
         try {
