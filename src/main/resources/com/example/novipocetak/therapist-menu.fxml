@@ -29,4 +29,6 @@
 
     <Button text="Uplate i dugovanja klijenata" onAction="#openPaymentsAndDebts"/>
 
+    <Button text="Analiza efikasnosti" onAction="#efficiencyAnalysis"/>
+
 </VBox>

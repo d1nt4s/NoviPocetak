@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.novipocetak.controllers.EfficiencyAnalysisController">
+
+    <top>
+        <Label text="Analiza efikasnosti rada psihoterapeuta"
+               style="-fx-font-size: 18px; -fx-padding: 10; -fx-font-weight: bold;" />
+    </top>
+
+    <center>
+        <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 20;">
+            <Label fx:id="sessionCountLabel" text="Broj seansi: ..." />
+            <Label fx:id="avgDurationLabel" text="Prosečno trajanje: ..." />
+            <Label fx:id="uniqueClientsLabel" text="Broj klijenata: ..." />
+            <Label fx:id="publishedPercentLabel" text="Objavljeni podaci: ..." />
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10;">
+            <Button text="Povratak u meni" onAction="#openTherapeutMenu"/>
+        </HBox>
+    </bottom>
+</BorderPane>

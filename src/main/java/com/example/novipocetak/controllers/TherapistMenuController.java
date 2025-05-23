@@ -80,4 +80,15 @@ public class TherapistMenuController {
         }
     }
 
+    public void efficiencyAnalysis(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/novipocetak/efficiency_analysis.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Greška pri prebacivanju scene", e.getMessage());
+        }
+    }
+
 }
